@@ -1,7 +1,5 @@
 import time
-
 from sprite import *
-
 
 def dialogue_mode(sprite, text):
     sprite.update()
@@ -18,11 +16,6 @@ def dialogue_mode(sprite, text):
         else:
             text2 = f1.render(text[3], True, 'White')
             screen.blit(text2, (280, 470))
-
-
-
-
-
 
 pg.init()
 pg.mixer.init()
@@ -51,8 +44,6 @@ heart_count = 3
 captain = Captain()
 alien = Alien()
 star_ship = Starship()
-
-
 
 start_text = ["Мы засекли сигнал с планеты Мур.",
               "",
@@ -97,9 +88,7 @@ pg.mixer.music.play()
 laser_sound = pg.mixer.Sound('laser.wav')
 fight = pg.mixer.Sound('fight.wav')
 
-
 while is_running:
-
     # СОБЫТИЯ
     for event in pg.event.get():
         if event.type == pg.QUIT:
@@ -111,8 +100,6 @@ while is_running:
                     text_number = 0
                     mode = 'meteorites'
                     start_time = time.time()
-
-
 
             if mode == 'alien_scene':
                 text_number += 2
@@ -136,7 +123,6 @@ while is_running:
                     lasers.add(Laser(star_ship.rect.midtop))
                     laser_sound.play()
 
-
     # ОБНОВЛЕНИЯ
     if mode == "start_scene":
         dialogue_mode(captain, start_text)
@@ -144,7 +130,6 @@ while is_running:
     if mode == "meteorites":
         fight.set_volume(0.5)
         fight.play()
-
 
         if time.time() - start_time > 3.0:
             mode = "alien_scene"
@@ -161,18 +146,14 @@ while is_running:
             if heart_count == 0:
                 is_running = False
 
-
         screen.blit(space, (0, 0))
         screen.blit(star_ship.image, star_ship.rect)
         meteorites.draw(screen)
         for i in range(heart_count):
             screen.blit(heart, (i * 30, 10))
 
-
-
     if mode == "alien_scene":
         dialogue_mode(alien, alien_text)
-
 
     if mode == "moon":
         if time.time() - start_time > 5.0:
@@ -200,7 +181,6 @@ while is_running:
         lasers.draw(screen)
         for i in range(heart_count):
             screen.blit(heart, (i * 30, 10))
-
 
     if mode == "final_scene":
         dialogue_mode(alien, final_text)
